@@ -1,0 +1,35 @@
+import React from "react";
+import {render, screen, waitFor} from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
+import { act } from "react-dom/test-utils";
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/matchers';
+import NoteItem from "@/app/components/NoteItem";
+
+// Pass Test Case . --> to pass the test you need to insert dummy data in component first
+
+describe("NoteItem Component", () => {
+  test("renders note item correctly", async() => {
+    const testData = {
+      id: 1,
+      title: "Test Note",
+      description: "This is a test note description.",
+    };
+    await act(async () => {
+      render(<NoteItem data={testData} />);
+    });
+
+    // Assertions
+    await act(async () => {
+      await waitFor(() => {
+        const updatedTitle = screen.getByText("Test Note");
+        const updatedDescription = screen.getByText("This is a test note description.");
+    
+        expect(updatedTitle).toBeInTheDocument();
+        expect(updatedDescription).toBeInTheDocument();
+    
+        expect(screen.getByRole("link")).toHaveAttribute("href", "/note/1");
+      });
+    });
+  });
+});

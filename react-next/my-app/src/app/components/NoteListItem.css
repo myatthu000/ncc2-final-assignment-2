@@ -1,0 +1,8 @@
+.w-500{
+    width: 230px;
+    /* height: auto; */
+}
+.w-500:hover{
+    transition: 0.3s;
+    background: rgba(190, 190, 190, 0.4);
+}
